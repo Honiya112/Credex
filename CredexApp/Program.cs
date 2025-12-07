@@ -1,5 +1,6 @@
 using CredexApp.BusinessLogic;
 using CredexApp.DataLayer;
+using CredexApp.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +21,11 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<CsvImportService>();
 
 var app = builder.Build();
+
+
+// seed user into database
+builder.Services.AddDefaultIdentity<User>()
+    .AddEntityFrameworkStores<AppDbContext>();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment()) {

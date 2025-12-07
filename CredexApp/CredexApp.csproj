@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <Folder Include="DataFiles\" />
+    <Folder Include="Views\Transaction\" />
   </ItemGroup>
 
 </Project>

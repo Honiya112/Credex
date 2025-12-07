@@ -10,6 +10,6 @@ namespace CredexApp.DataLayer {
 
         public DbSet<AnnualReport> AnnualReports { get; set; } // List of annual reports
 
-        // public DbSet<Transaction> Transactions { get; set; } // List of transactions
+        public DbSet<Transactions> Transactions { get; set; } // List of transactions
     }
 }
