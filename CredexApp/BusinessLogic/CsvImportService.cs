@@ -38,15 +38,5 @@ namespace CredexApp.BusinessLogic {
             }
             _context.SaveChanges(); // Save dba changes
         }
-
-        // Get all AnnualReport from dba
-        public List<AnnualReport> GetAllReports() {
-            return _context.AnnualReports.ToList();
-        }
-
-        // Get AnnualReport by year
-        public AnnualReport GetAnnualReportByYear(int id) { 
-            return _context.AnnualReports.FirstOrDefault(r => r.Id == id);
-        }
     }
 }

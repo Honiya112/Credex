@@ -19,6 +19,9 @@ builder.Services.AddControllersWithViews();
 // Register CsvImportService for dependency injection
 builder.Services.AddScoped<CsvImportService>();
 
+// Register FinancialService for dependency injection
+builder.Services.AddScoped<FinancialService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

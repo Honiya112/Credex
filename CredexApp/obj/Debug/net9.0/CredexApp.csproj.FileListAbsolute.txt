@@ -237,7 +237,6 @@ C:\Users\honiy\PROG30000-C#\CredexApp\CredexApp\obj\Debug\net9.0\compressed\a3yg
 C:\Users\honiy\PROG30000-C#\CredexApp\CredexApp\obj\Debug\net9.0\compressed\nezrqnk58p-muycvpuwrr.gz
 C:\Users\honiy\PROG30000-C#\CredexApp\CredexApp\obj\Debug\net9.0\compressed\v0zgfp0y55-87fc7y1x7t.gz
 C:\Users\honiy\PROG30000-C#\CredexApp\CredexApp\obj\Debug\net9.0\compressed\yfc7ypekbg-mlv21k5csn.gz
-C:\Users\honiy\PROG30000-C#\CredexApp\CredexApp\obj\Debug\net9.0\compressed\3e6art3p8y-b9sayid5wm.gz
 C:\Users\honiy\PROG30000-C#\CredexApp\CredexApp\obj\Debug\net9.0\compressed\bsy0pv70hw-61n19gt1b8.gz
 C:\Users\honiy\PROG30000-C#\CredexApp\CredexApp\obj\Debug\net9.0\compressed\6vgo19y23i-xtxxf3hu2r.gz
 C:\Users\honiy\PROG30000-C#\CredexApp\CredexApp\obj\Debug\net9.0\compressed\uzoo9z5alg-bqjiyaj88i.gz
@@ -312,3 +311,4 @@ C:\Users\honiy\PROG30000-C#\CredexApp\CredexApp\obj\Debug\net9.0\CredexApp.pdb
 C:\Users\honiy\PROG30000-C#\CredexApp\CredexApp\obj\Debug\net9.0\CredexApp.genruntimeconfig.cache
 C:\Users\honiy\PROG30000-C#\CredexApp\CredexApp\obj\Debug\net9.0\ref\CredexApp.dll
 C:\Users\honiy\PROG30000-C#\CredexApp\CredexApp\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
+C:\Users\honiy\PROG30000-C#\CredexApp\CredexApp\obj\Debug\net9.0\compressed\3e6art3p8y-1b5yhw3gxs.gz
