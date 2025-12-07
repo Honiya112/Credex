@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <Folder Include="BusinessLogic\" />
-    <Folder Include="DataLayer\" />
   </ItemGroup>
 
 </Project>

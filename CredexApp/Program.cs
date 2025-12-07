@@ -1,4 +1,16 @@
+using CredexApp.DataLayer;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+/* Find connection string, otherwise throw error */
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
+/* Register dba + use sqlite + allows AppDbContext to access dba */
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite(connectionString));
+
+/* Show detailed errors */
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
