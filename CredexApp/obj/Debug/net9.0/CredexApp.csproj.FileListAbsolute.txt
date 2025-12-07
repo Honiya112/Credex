@@ -311,3 +311,4 @@ C:\Users\honiy\PROG30000-C#\CredexApp\CredexApp\obj\Debug\net9.0\refint\CredexAp
 C:\Users\honiy\PROG30000-C#\CredexApp\CredexApp\obj\Debug\net9.0\CredexApp.pdb
 C:\Users\honiy\PROG30000-C#\CredexApp\CredexApp\obj\Debug\net9.0\CredexApp.genruntimeconfig.cache
 C:\Users\honiy\PROG30000-C#\CredexApp\CredexApp\obj\Debug\net9.0\ref\CredexApp.dll
+C:\Users\honiy\PROG30000-C#\CredexApp\CredexApp\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

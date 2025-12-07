@@ -45,8 +45,8 @@ namespace CredexApp.BusinessLogic {
         }
 
         // Get AnnualReport by year
-        public AnnualReport GetAnnualReportByYear(int year) { 
-            return _context.AnnualReports.FirstOrDefault(r => r.Year == year);
+        public AnnualReport GetAnnualReportByYear(int id) { 
+            return _context.AnnualReports.FirstOrDefault(r => r.Id == id);
         }
     }
 }

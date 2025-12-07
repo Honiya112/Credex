@@ -7,7 +7,7 @@ namespace CredexApp.Controllers {
     public class FinancialHistoryController : Controller {
         private CsvImportService _importService;
 
-        FinancialHistoryController(CsvImportService importService) {
+        public FinancialHistoryController(CsvImportService importService) {
             _importService = importService;
         }
 
@@ -18,8 +18,8 @@ namespace CredexApp.Controllers {
         }
 
         // Display the Details view for a specific year
-        public IActionResult Details(int year) { 
-            var annualReport = _importService.GetAnnualReportByYear(year);
+        public IActionResult Details(int id) { 
+            var annualReport = _importService.GetAnnualReportByYear(id);
             return View(annualReport);
         }
     }
