@@ -1,3 +1,4 @@
+/* Author: Ana Novakov, Honiya Maqsood | Description: app startup and middleware */
 using CredexApp.BusinessLogic;
 using CredexApp.DataLayer;
 using Microsoft.EntityFrameworkCore;

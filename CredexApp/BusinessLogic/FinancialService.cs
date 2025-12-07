@@ -1,6 +1,7 @@
-﻿using CredexApp.DataLayer;
+﻿/* Author: Honiya Maqsood | Description: methods used in FinancialHistoryController to display data from dba */
+
+using CredexApp.DataLayer;
 using CredexApp.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace CredexApp.BusinessLogic {
     public class FinancialService {
