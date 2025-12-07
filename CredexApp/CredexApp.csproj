@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="BusinessLogic\" />
+    <Folder Include="DataFiles\" />
   </ItemGroup>
 
 </Project>
