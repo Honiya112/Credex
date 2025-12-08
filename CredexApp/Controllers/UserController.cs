@@ -1,12 +1,11 @@
 using CredexApp.BusinessLogic;
 using CredexApp.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CredexApp.Controllers;
 
-
+[Authorize]
 public class UserController : Controller
 {
     // this controller will allow the Admin to 
@@ -18,7 +17,6 @@ public class UserController : Controller
     }
 
     [HttpGet]
-    [AllowAnonymous]
     public async Task<IActionResult> Index(int? page = 1)
     {
         var transactions = await _transactionService.GetTransactionsAsync(page, 50);

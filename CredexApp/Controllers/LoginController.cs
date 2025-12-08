@@ -9,7 +9,6 @@ namespace CredexApp.Controllers;
 [Route("Login")]
 public class LoginController : Controller
 {
-    
     private SignInManager<User> _signInManager;
 
     public LoginController(SignInManager<User> signInManager)

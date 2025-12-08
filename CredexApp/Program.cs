@@ -77,12 +77,12 @@ app.UseAuthorization();
 
 app.MapStaticAssets();
 
-
+/*
 app.MapControllerRoute(
     name: "login",
     pattern: "Login/{action=Login}/{id?}",
     defaults: new { controller = "Login" }
-);
+); */
 
 app.MapControllerRoute(
     name: "default",
