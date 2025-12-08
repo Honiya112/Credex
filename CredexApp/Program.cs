@@ -35,6 +35,15 @@ builder.Services.AddDefaultIdentity<User>(options =>
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Login";  // Points to LoginController
+    options.LogoutPath = "/Login/Logout";  
+    options.AccessDeniedPath = "/Login/AccessDenied";  
+});
+
+builder.Services.AddScoped<SignInManager<User>>();
+
 
 var app = builder.Build();
 
@@ -67,10 +76,16 @@ app.UseAuthorization();
 
 app.MapStaticAssets();
 
+
+app.MapControllerRoute(
+    name: "login",
+    pattern: "Login/{action=Login}/{id?}",
+    defaults: new { controller = "Login" }
+);
+
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=FinancialHistory}/{action=Index}/{id?}")
-    .WithStaticAssets();
+    pattern: "{controller=FinancialHistory}/{action=Index}/{id?}");
 
 
 using (var scope = app.Services.CreateScope()) {

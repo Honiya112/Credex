@@ -5,10 +5,12 @@ namespace CredexApp.Models;
 public class Login
 {
     [Required(ErrorMessage = "Please enter your username")]
-    public string Username { get; set; }
+    [EmailAddress]
+    public string Username { get; set; } = string.Empty;
     
     [Required(ErrorMessage = "Please enter your password")]
-    public string Password { get; set; }
+    [DataType(DataType.Password)]
+    public string Password { get; set; } = string.Empty;
     
     public bool RememberMe { get; set; }
     
