@@ -43,20 +43,26 @@ if (!app.Environment.IsDevelopment()) {
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
+
 app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Login}/{action=Login}/{id?}")
+    pattern: "{controller=FinancialHistory}/{action=Index}/{id?}")
     .WithStaticAssets();
 
 using (var scope = app.Services.CreateScope()) {
     var services = scope.ServiceProvider;
+    
+    // Ana - seed admin first
+    await UserService.SeedAsync(services);
+    
     var context = services.GetRequiredService<AppDbContext>();
 
     var importService = new CsvImportService(context); // Run import service
