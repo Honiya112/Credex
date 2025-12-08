@@ -50,7 +50,7 @@ public class TransactionService
             .GroupBy(t => t.TransactionDate.Date)
             .Select(g => new
             {
-                date = g.Key.ToString("yyyy-MM-dd"),
+                date = g.Key, // cannot read format yyyy-MM-dd, changed to g.Key
                 spending = g.Sum(t => t.Spending),
                 earnings = g.Sum(t => t.Earnings),
                 

@@ -38,16 +38,14 @@ public class LoginController : Controller
             login.RememberMe, 
             false);
 
+        // issue might be here
+        
         if (result.Succeeded)
         {
-            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
-            {
-                return Redirect(returnUrl);
-            }
-            
-            return RedirectToAction("Index", "User");
+            return Redirect(returnUrl ?? Url.Action("Index", "User"));
         }
         ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+        
         return View(login);
     }
 }

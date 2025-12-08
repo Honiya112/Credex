@@ -20,14 +20,14 @@ public class UserService
             }
         }
         
-        CreateAdmin(userManager);
+        await CreateAdmin(userManager);
     }
 
-    public static async void CreateAdmin(UserManager<User> userManager)
+    public static async Task CreateAdmin(UserManager<User> userManager)
     {
         var adminRoleName = "Admin";
         var adminEmail = "admin@credex.com";
-        var adminPassword = "admin";
+        var adminPassword = "Admin123!";
         
         var adminUser = await userManager.FindByEmailAsync(adminEmail);
         
@@ -44,6 +44,14 @@ public class UserService
             if (result.Succeeded)
             {
                 await userManager.AddToRoleAsync(adminUser, adminRoleName);
+            }
+
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    Console.WriteLine(error.Description);
+                }
             }
         }
     }

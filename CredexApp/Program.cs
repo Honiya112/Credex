@@ -31,10 +31,14 @@ builder.Services.AddScoped<TransactionService>();
 // Ana - moved this BEFORE var app = builder.Build().
 // seed user into database
 builder.Services.AddDefaultIdentity<User>(options =>
-    options.SignIn.RequireConfirmedAccount = true)
-    .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<AppDbContext>()
-    .AddDefaultTokenProviders();
+{
+    options.SignIn.RequireConfirmedAccount = true;
+    options.SignIn.RequireConfirmedEmail = false;
+    options.SignIn.RequireConfirmedPhoneNumber = false;
+})
+.AddRoles<IdentityRole>()
+.AddEntityFrameworkStores<AppDbContext>();
+
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
