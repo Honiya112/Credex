@@ -21,25 +21,30 @@
                   <h4 class="mt-1 mb-5 pb-1">PROG3000 - Final Project</h4>
                 </div>
 
-                <form asp-action="Login" method="get">
+                <form asp-action="Login" method="post">
+                  @Html.AntiForgeryToken();
                   <p>Please login to your admin account</p>
 
+                  <div asp-validation-summary="All" class="text-danger"></div>
                   <div data-mdb-input-init class="form-outline mb-4">
-                    <input asp-for="Username" type="email" id="form2Example11" class="form-control"
-                      placeholder="Username" />
+                    <input asp-for="Username" type="text" id="form2Example11" class="form-control"
+                           placeholder="Username"/>
                     <label class="form-label" for="form2Example11">Username</label>
+                    <span class="text-danger" asp-validation-for="Username"></span>
                   </div>
 
+                  <div asp-validation-summary="All" class="text-danger"></div>
                   <div data-mdb-input-init class="form-outline mb-4">
-                    <input asp-for="Password" type="password" id="form2Example22" class="form-control" />
+                    <input asp-for="Password" type="password" id="form2Example22" class="form-control"/>
                     <label class="form-label" for="form2Example22">Password</label>
+                    <span class="text-danger" asp-validation-for="Password"></span>
                   </div>
-                  
+
                   <div class="text-center pt-1 mb-5 pb-1">
                     <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit">Log
                       in</button>
                   </div>
-                  
+
                 </form>
 
               </div>

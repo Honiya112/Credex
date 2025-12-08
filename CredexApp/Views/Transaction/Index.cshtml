@@ -1,7 +1,61 @@
-@model TModel
+@model List<Transactions>
 
 @{
-    Layout = null;
+   Layout = "_Layout";
 }
+<!-- https://www.chartjs.org/docs/latest/getting-started/ -->
 
-<!-- https://learn.microsoft.com/en-us/aspnet/web-pages/overview/data/7-displaying-data-in-a-chart#creating-a-chart-from-data -->
+<div class="container mt-4">
+  <h2> Credex Dashboard </h2>
+  
+  <div>
+    <canvas id="myChart" width="800" height="400"></canvas>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const chartData = @Html.Raw(Json.Serialize(ViewBag.ChartData));
+
+  // canvas context
+  const ctx = document.getElementById("myChart").getContext('2d');
+
+  let delayed;
+  const config = {
+    type: 'bar', // bar graph looks cooler
+    data: chartData,
+    options: {
+      animation: {
+        onComplete: () => {
+          delayed = true;
+        },
+        delay: (context) => {
+          let delay = 0;
+          if (context.type === 'data' && context.mode === 'default' && !delayed) {
+            delay = context.dataIndex * 300 + context.datasetIndex * 100;
+          }
+          return delay;
+        },
+      },
+      responsive: true,
+      scales: {
+        x: {
+          stacked: true,
+        },
+        y: {
+          stacked: true,
+          beginAtZero: true,
+        }
+      },
+      plugins: {
+        title: {
+          display: true,
+          text: 'Spending vs Earnings (Stacked)'
+        }
+      }
+    }
+  };
+  
+  new Chart(ctx, config);
+  
+  </script>
