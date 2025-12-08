@@ -7,7 +7,7 @@ namespace CredexApp.Controllers;
 
 public class UserController : Controller
 {
-    // this is the login form for users
+    
     private UserService _service;
   
     public UserController(UserService service)
