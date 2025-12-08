@@ -1,7 +1,7 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
-
-/.vs
-/CredexApp/.gitignore
-/CredexApp/.vs
+# Generated files
+bin/
+obj/
+*.db
+*.dll
+*.pdb
+!*.db-schema.sql 
