@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CredexApp.Controllers;
 
-[Authorize(Roles = "Admin")]
+
 public class UserController : Controller
 {
     // this controller will allow the Admin to 
@@ -18,6 +18,7 @@ public class UserController : Controller
     }
 
     [HttpGet]
+    [AllowAnonymous]
     public async Task<IActionResult> Index(int? page = 1)
     {
         var transactions = await _transactionService.GetTransactionsAsync(page, 50);
