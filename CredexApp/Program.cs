@@ -3,6 +3,7 @@ using CredexApp.DataLayer;
 using CredexApp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,7 +31,7 @@ builder.Services.AddScoped<TransactionService>();
 // Ana - moved this BEFORE var app = builder.Build().
 // seed user into database
 builder.Services.AddDefaultIdentity<User>(options =>
-    options.SignIn.RequireConfirmedAccount = false)
+    options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
