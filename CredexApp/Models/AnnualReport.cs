@@ -11,3 +11,11 @@ namespace CredexApp.Models {
         public decimal TotalLiabilities { get; set; } // All current/non-current debts and obligations | in Billions
     }
 }
+
+// Sort options for displaying Annual Reports
+public enum SortOptions { 
+    YearDescending, // Year Inc to Dec | Default
+    YearAscending, // Year Dec to Inc
+    RevenueDescending, // Revenue Inc to Dec
+    EarningsDescending // Earning Inc to Dec
+}

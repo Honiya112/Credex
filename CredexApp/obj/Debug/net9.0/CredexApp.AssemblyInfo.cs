@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CredexApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+106543dd941919bf1d5a1025b80dc0b7f07ca4bf")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+faad2774ec1935537be70de0b25b9c74e850c1f5")]
 [assembly: System.Reflection.AssemblyProductAttribute("CredexApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CredexApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
