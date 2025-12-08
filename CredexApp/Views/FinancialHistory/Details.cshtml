@@ -5,13 +5,15 @@
 <div class="container mt-5">
     <div class="card shadow-sm">
         <div class="card-header bg-dark text-white">
-            <h4 class="mb-0">Financial Position Overview</h4>
+            <h4 class="mb-0">Financial Position Overview For @Model.Year</h4>
         </div>
 
         <div class="card-body p-0">
             <table class="table table-bordered table-hover mb-0">
                 <thead class="table-light text-center">
                     <tr>
+                        <th scope="col" class="py-3">Revenue (Billions)</th>
+                        <th scope="col" class="py-3">Earning (Billions)</th>
                         <th scope="col" class="py-3">Total Assets (Billions)</th>
                         <th scope="col" class="py-3">Total Debt (Billions)</th>
                         <th scope="col" class="py-3">Total Liabilities (Billions)</th>
@@ -20,6 +22,8 @@
 
                 <tbody class="text-center">
                     <tr>
+                        <td class="fs-5 text-success">@Model.Revenue.ToString("C2")</td>
+                        <td class="fs-5 text-success">@Model.Earnings.ToString("C2")</td>
                         <td class="fs-5 text-success">@Model.TotalAssets.ToString("C2")</td>
                         <td class="fs-5 text-danger">@Model.TotalDebt.ToString("C2")</td>
                         <td class="fs-5">@Model.TotalLiabilities.ToString("C2")</td>

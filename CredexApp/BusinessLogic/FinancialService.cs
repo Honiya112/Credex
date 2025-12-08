@@ -37,5 +37,15 @@ namespace CredexApp.BusinessLogic {
             return _context.AnnualReports.FirstOrDefault(r => r.Id == id);
         }
 
+        // Add AnnualReport to dba
+        public void AddAnnualReport(AnnualReport report) {
+            _context.AnnualReports.Add(report);
+            _context.SaveChanges();
+        }
+
+        // Check if AnnualReport for a year already exists
+        public bool CheckYearExists(int year) {
+            return _context.AnnualReports.Any(r => r.Year == year);
+        }
     }
 }
