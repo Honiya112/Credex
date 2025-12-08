@@ -1,6 +1,7 @@
 /* Author: Ana Novakov, Honiya Maqsood | Description: app startup and middleware */
 using CredexApp.BusinessLogic;
 using CredexApp.DataLayer;
+using CredexApp.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +21,15 @@ builder.Services.AddControllersWithViews();
 // Register CsvImportService for dependency injection
 builder.Services.AddScoped<CsvImportService>();
 
+// Register Transaction
+builder.Services.AddScoped<TransactionService>();
+
+// Ana - moved this BEFORE var app = builder.Build().
+// seed user into database
+builder.Services.AddDefaultIdentity<User>(options =>
+    options.SignIn.RequireConfirmedAccount = false)
+    .AddEntityFrameworkStores<AppDbContext>();
+
 // Register FinancialService for dependency injection
 builder.Services.AddScoped<FinancialService>();
 
@@ -27,6 +37,7 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment()) {
+    
     app.UseMigrationsEndPoint();
 } else {
     app.UseExceptionHandler("/Home/Error");
@@ -35,9 +46,12 @@ if (!app.Environment.IsDevelopment()) {
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapStaticAssets();
 
@@ -48,6 +62,10 @@ app.MapControllerRoute(
 
 using (var scope = app.Services.CreateScope()) {
     var services = scope.ServiceProvider;
+    
+    // Ana - seed admin first
+    await UserService.SeedAsync(services);
+    
     var context = services.GetRequiredService<AppDbContext>();
 
     var importService = new CsvImportService(context); // Run import service
