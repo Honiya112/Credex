@@ -8,6 +8,10 @@
 <div class="container mt-4">
   <h2> Credex Dashboard </h2>
   
+  <button type="submit" class="btn btn-outline-primary">
+    <a asp-action="Add"> Add Transaction</a>
+  </button>
+  
   <div>
     <canvas id="myChart" width="800" height="400"></canvas>
   </div>
@@ -61,3 +65,4 @@
   new Chart(ctx, config);
   
   </script>
+  
