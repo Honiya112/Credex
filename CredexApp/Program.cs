@@ -1,6 +1,7 @@
 using CredexApp.BusinessLogic;
 using CredexApp.DataLayer;
 using CredexApp.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +21,9 @@ builder.Services.AddControllersWithViews();
 // Register CsvImportService for dependency injection
 builder.Services.AddScoped<CsvImportService>();
 
+// need to inject FinancialService
+builder.Services.AddScoped<FinancialService>();
+
 // Register Transaction
 builder.Services.AddScoped<TransactionService>();
 
@@ -27,14 +31,25 @@ builder.Services.AddScoped<TransactionService>();
 // seed user into database
 builder.Services.AddDefaultIdentity<User>(options =>
     options.SignIn.RequireConfirmedAccount = false)
-    .AddEntityFrameworkStores<AppDbContext>();
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
 
 
 var app = builder.Build();
 
+// MIGRATE FIRST - This creates the tables!
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    context.Database.Migrate();
+}
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment()) {
     
+    app.UseDeveloperExceptionPage();
     app.UseMigrationsEndPoint();
 } else {
     app.UseExceptionHandler("/Home/Error");
@@ -57,14 +72,14 @@ app.MapControllerRoute(
     pattern: "{controller=FinancialHistory}/{action=Index}/{id?}")
     .WithStaticAssets();
 
+
 using (var scope = app.Services.CreateScope()) {
     var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<AppDbContext>();
     
     // Ana - seed admin first
     await UserService.SeedAsync(services);
     
-    var context = services.GetRequiredService<AppDbContext>();
-
     var importService = new CsvImportService(context); // Run import service
 
     string path = Path.Combine(Directory.GetCurrentDirectory(), "DataFiles", "Financial_Statements.csv"); // Path to CSV file

@@ -8,19 +8,39 @@ public class UserService
     public static async Task SeedAsync(IServiceProvider services)
     {
         var userManager = services.GetRequiredService<UserManager<User>>();
+        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
-        var admin = await userManager.FindByEmailAsync("secure@credexadmin.com");
-        
-        if (admin == null)
+        string adminRoleName = "Admin";
+
+        // create Admin role
+        if (!await roleManager.RoleExistsAsync(adminRoleName))
         {
-            admin = new User {Email = "secure@credexadmin.com", UserName = "admin"};
-            
-            var result = await userManager.CreateAsync(admin, "adminPass123!");
+            await roleManager.CreateAsync(new IdentityRole(adminRoleName));
+        }
+
+        //create admin if not existing yet
+        string adminEmail = "admin@credex.com";
+        // find admin user by email 
+        var adminUser = await userManager.FindByEmailAsync("admin@credex.com");
+
+        if (adminUser == null)
+        {
+            adminUser = new User
+            {
+                Email = adminEmail,
+                UserName = adminEmail,
+                EmailConfirmed = true,
+            };
+
+            var result = await userManager.CreateAsync(adminUser, "admin123!");
             if (result.Succeeded)
             {
-                await userManager.AddToRoleAsync(admin, "Admin");
+                await userManager.AddToRoleAsync(adminUser, adminRoleName);
             }
         }
-        
+        else if (!await userManager.IsInRoleAsync(adminUser, adminRoleName))
+        {
+            await userManager.AddToRoleAsync(adminUser, adminRoleName);
+        }
     }
 }
