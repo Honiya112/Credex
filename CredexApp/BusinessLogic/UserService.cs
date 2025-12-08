@@ -10,18 +10,27 @@ public class UserService
         var userManager = services.GetRequiredService<UserManager<User>>();
         var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
-        const string adminRoleName = "Admin";
-        const string adminEmail = "admin@credex.com";
-        const string adminPassword = "admin";
+         string[] roles = {"Admin"};
 
-        // create Admin role
-        if (!await roleManager.RoleExistsAsync(adminRoleName))
+        foreach (var role in roles)
         {
-            await roleManager.CreateAsync(new IdentityRole(adminRoleName));
+            if (!await roleManager.RoleExistsAsync(role))
+            {
+                await roleManager.CreateAsync(new IdentityRole(role));
+            }
         }
         
-        // find admin user by email 
+        CreateAdmin(userManager);
+    }
+
+    public static async void CreateAdmin(UserManager<User> userManager)
+    {
+        var adminRoleName = "Admin";
+        var adminEmail = "admin@credex.com";
+        var adminPassword = "admin";
+        
         var adminUser = await userManager.FindByEmailAsync(adminEmail);
+        
         if (adminUser == null)
         {
             adminUser = new User
@@ -30,16 +39,12 @@ public class UserService
                 UserName = adminEmail,
                 EmailConfirmed = true,
             };
-
+            
             var result = await userManager.CreateAsync(adminUser, adminPassword);
             if (result.Succeeded)
             {
                 await userManager.AddToRoleAsync(adminUser, adminRoleName);
             }
-        }
-        else if (!await userManager.IsInRoleAsync(adminUser, adminRoleName))
-        {
-            await userManager.AddToRoleAsync(adminUser, adminRoleName);
         }
     }
 }
