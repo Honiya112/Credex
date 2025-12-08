@@ -13,14 +13,14 @@ public class TransactionService
         _db = db;
     }
 
-    // Create a transaction
-    public void CreateTransaction(Transactions transaction)
-    {
-        _db.Transactions.Add(transaction);
-        _db.SaveChanges();
-    }
+    // SEARCH
 
-    // READ
+    public async Task<Transactions?> FindTransactionAsync(int transactionId)
+    {
+       return await  _db.Transactions.FindAsync(transactionId);
+    }
+    
+    // READ with pagination (incase of large data)
     public async Task<List<Transactions>> GetTransactionsAsync(int? page = 1, int pageSize = 50)
     {
         try
@@ -37,6 +37,44 @@ public class TransactionService
             
             return new List<Transactions>();
         }
+    }
+    
+    //READ FOR CHART DATA
+    public async Task<object> GetChartDataAsync(DateTime? fromDate = null)
+    {
+        var query = _db.Transactions.AsQueryable();
+        if (fromDate.HasValue)
+            query = query.Where(t => t.TransactionDate.Date >= fromDate.Value.Date);
+        
+        var data = await query
+            .GroupBy(t => t.TransactionDate.Date)
+            .Select(g => new
+            {
+                date = g.Key.ToString("yyyy-MM-dd"),
+                spending = g.Sum(t => t.Spending),
+                earnings = g.Sum(t => t.Earnings),
+                
+            })
+            .OrderBy(x => x.date)
+            .ToListAsync();
+
+        return new
+        {
+            labels = data.Select(x => x.date),
+            datasets = new[]
+            {
+                new
+                {
+                    label = "Spending", data = data.Select(x => (double)x.spending),
+                    borderColor = "rgba(255, 99, 123, 1)", backgroundColor = "rgba(255, 99, 132, 0.2)"
+                },
+                new
+                {
+                    label = "Earnings", data = data.Select(x => (double)x.earnings),
+                    borderColor = "rgba(75, 192, 192, 1)", backgroundColor = "rgba(75, 192, 192, 0.2)"
+                }
+            }
+        };
     }
     
     // CREATE
