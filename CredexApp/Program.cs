@@ -1,4 +1,3 @@
-/* Author: Ana Novakov, Honiya Maqsood | Description: app startup and middleware */
 using CredexApp.BusinessLogic;
 using CredexApp.DataLayer;
 using CredexApp.Models;
@@ -30,8 +29,6 @@ builder.Services.AddDefaultIdentity<User>(options =>
     options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<AppDbContext>();
 
-// Register FinancialService for dependency injection
-builder.Services.AddScoped<FinancialService>();
 
 var app = builder.Build();
 
