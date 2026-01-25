@@ -28,6 +28,8 @@ builder.Services.AddScoped<FinancialService>();
 // Register Transaction
 builder.Services.AddScoped<TransactionService>();
 
+builder.Services.AddScoped<StatisticsService>();
+
 // Ana - moved this BEFORE var app = builder.Build().
 // seed user into database
 builder.Services.AddDefaultIdentity<User>(options =>

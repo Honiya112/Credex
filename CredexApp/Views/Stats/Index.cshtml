@@ -1,0 +1,101 @@
+@{
+    ViewData["Title"] = "Financial Performance Dashboard";
+}
+
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-md-12 text-center">
+            <h2>Financial Performance (2002-2022)</h2>
+            <p class="text-muted">Historical Data & Linear Regression Forecast</p>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-success">
+                <div class="card-body text-center">
+                    <h5 class="card-title text-success">2023 Earnings Forecast</h5>
+                    <h2 id="predictionText" class="display-4">Loading...</h2>
+                    <p class="card-text">Predicted by Linear Regression Model</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow">
+        <div class="card-body">
+            <canvas id="financialChart" height="100"></canvas>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    // Get data from controller
+    fetch('/Stats/GetFinancialData')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Update prediction card
+            const formattedPrediction = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(data.prediction.value) + " B";
+            document.getElementById('predictionText').innerText = formattedPrediction;
+
+            // Config. the chart
+            const ctx = document.getElementById('financialChart').getContext('2d');
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.years,
+                    datasets: [
+                        {
+                            label: 'Revenue ($B)',
+                            data: data.revenues,
+                            borderColor: 'rgba(54, 162, 235, 1)', // Blue
+                            backgroundColor: 'rgba(54, 162, 235, 0.1)',
+                            borderWidth: 2,
+                            tension: 0.3, // Smooth curves
+                            fill: true
+                        },
+                        {
+                            label: 'Earnings ($B)',
+                            data: data.earnings,
+                            borderColor: 'rgba(75, 192, 192, 1)', // Blue
+                            backgroundColor: 'rgba(75, 192, 192, 0.1)',
+                            borderWidth: 2,
+                            tension: 0.3, // Smooth curves
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Revenue vs Net Income Trends'
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                title: 'Billions (USD)'
+                            }
+                        }
+                    }
+                }
+            });
+        })
+        .catch(error => console.error('Error fetching data:', error));
+</script>

@@ -27,6 +27,7 @@ namespace CredexApp.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("Revenue")
+                        .HasPrecision(18, 2)
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("TotalAssets")
@@ -52,16 +53,28 @@ namespace CredexApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<double>("Amount")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<double>("Earnings")
                         .HasColumnType("REAL");
 
                     b.Property<double>("Spending")
+                        .HasPrecision(18, 2)
                         .HasColumnType("REAL");
 
                     b.Property<DateTime>("TransactionDate")
                         .HasColumnType("TEXT");
 
                     b.HasKey("TransactionId");
+
+                    b.HasIndex("Category");
+
+                    b.HasIndex("TransactionDate");
 
                     b.ToTable("Transactions");
                 });

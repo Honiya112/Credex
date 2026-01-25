@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CredexApp.Migrations
 {
     /// <inheritdoc />
-    public partial class AddTransactionTables : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,7 +18,7 @@ namespace CredexApp.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Year = table.Column<int>(type: "INTEGER", nullable: false),
-                    Revenue = table.Column<decimal>(type: "TEXT", nullable: false),
+                    Revenue = table.Column<decimal>(type: "TEXT", precision: 18, scale: 2, nullable: false),
                     Earnings = table.Column<decimal>(type: "TEXT", nullable: false),
                     TotalAssets = table.Column<decimal>(type: "TEXT", nullable: false),
                     TotalDebt = table.Column<decimal>(type: "TEXT", nullable: false),
@@ -74,9 +74,11 @@ namespace CredexApp.Migrations
                 {
                     TransactionId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Spending = table.Column<double>(type: "REAL", nullable: false),
+                    Spending = table.Column<double>(type: "REAL", precision: 18, scale: 2, nullable: false),
                     Earnings = table.Column<double>(type: "REAL", nullable: false),
-                    TransactionDate = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    TransactionDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Category = table.Column<string>(type: "TEXT", nullable: false),
+                    Amount = table.Column<double>(type: "REAL", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -225,6 +227,16 @@ namespace CredexApp.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transactions_Category",
+                table: "Transactions",
+                column: "Category");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transactions_TransactionDate",
+                table: "Transactions",
+                column: "TransactionDate");
         }
 
         /// <inheritdoc />

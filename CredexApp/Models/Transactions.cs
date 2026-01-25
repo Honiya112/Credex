@@ -10,4 +10,6 @@ public class Transactions
     public double Spending { get; set; } // y axis
     public double Earnings { get; set; } // y axis
     public DateTime TransactionDate { get; set; } // used for chart data (x axis)
+    public string Category { get; set; } 
+    public double Amount { get; set; }
 }
